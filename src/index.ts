@@ -1,33 +1,20 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import authRoutes from './routes/auth';
-import { prisma } from './prisma';
-import ErrorHandlerMiddleware from './middlewares/error.middleware'
-dotenv.config();
+import http from "http";
+import { Server } from "socket.io";
+import app from "./app";
+import { messageSocket } from "./socket/message.socket";
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(cors({
-  origin: true,
-  credentials: true
-}));
+const server = http.createServer(app);
 
-app.use('/api/auth', authRoutes);
-
-app.get('/', (req, res) => res.send('Hello World!'));
-
-app.use(ErrorHandlerMiddleware)
-
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+const io = new Server(server, {
+  cors: { origin: "*" },
 });
 
-process.on('SIGINT', async () => {
-  await prisma.$disconnect();
-  process.exit(0);
+io.on("connection", (socket) => {
+  messageSocket(io, socket);
+});
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

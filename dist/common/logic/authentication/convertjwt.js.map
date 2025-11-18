@@ -1,0 +1,1 @@
+{"version":3,"file":"convertjwt.js","sourceRoot":"","sources":["../../../../src/common/logic/authentication/convertjwt.ts"],"names":[],"mappings":";;;;;AAMA,gCAGC;AATD,gEAA8B;AAC9B,oDAA2B;AAC3B,6CAAsD;AAEtD,gBAAM,CAAC,MAAM,EAAE,CAAA;AAEf,SAAgB,UAAU,CAAC,YAAiB;IAC1C,MAAM,YAAY,GAAQ,sBAAG,CAAC,MAAM,CAAC,YAAY,EAAE,uBAAiB,CAAC,CAAA;IACrE,OAAO,YAAY,CAAC,MAAM,CAAA;AAC5B,CAAC"}
